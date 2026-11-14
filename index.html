@@ -6,234 +6,297 @@
 <title>Thisula Shehan | Biodiversity Research</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F0F4EF; --surface:#E1EBE3; --ink:#14332C; --muted:#4D6760; --moss:#2A7A68; --shell:#B7822A; --line:#BFD0C6;
-  --display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
-  --body:"Newsreader",Georgia,"Times New Roman",serif;
-  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
-  color-scheme:light;
+  --bg:#151210;--surface:#1E1A17;--ink:#F3EDE6;--muted:#A39A90;--acc:#FF5A1F;--line:#2D2723;
+  --sans:"Manrope","Helvetica Neue",Arial,sans-serif;--serif:"Instrument Serif",Georgia,serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark;
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){--bg:#0F1F1B;--surface:#17302A;--ink:#E6EFE8;--muted:#9DB5AC;--moss:#5CC2A9;--shell:#E0AE5A;--line:#2C4A41;color-scheme:dark}
-}
-:root[data-theme="dark"]{--bg:#0F1F1B;--surface:#17302A;--ink:#E6EFE8;--muted:#9DB5AC;--moss:#5CC2A9;--shell:#E0AE5A;--line:#2C4A41;color-scheme:dark}
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:5rem}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 1.125rem/1.65 var(--body)}
+html{scroll-behavior:smooth;scroll-padding-top:4.5rem;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.02rem/1.7 var(--sans);overflow-x:hidden}
 a{color:inherit}
-a:focus-visible{outline:3px solid var(--shell);outline-offset:3px;border-radius:2px}
-.wrap{max-width:68rem;margin:0 auto;padding:0 clamp(1.25rem,5vw,3rem)}
-h1,h2,h3{font-family:var(--display);line-height:1.05;margin:0;letter-spacing:-.02em}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.wrap{max-width:70rem;margin:0 auto;padding:0 clamp(1.25rem,5vw,3rem)}
+h1,h2,h3{margin:0;font-weight:500;letter-spacing:-.025em;line-height:1.05}
+em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc);letter-spacing:0}
+.eyebrow{display:flex;align-items:center;gap:.7rem;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 1.4rem}
+.eyebrow i{width:.45rem;height:.45rem;border-radius:50%;background:var(--acc);display:inline-block}
+.eyebrow b{color:var(--acc);font-weight:500}
 
-/* nav */
-nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-nav .wrap{display:flex;gap:1.5rem;align-items:center;justify-content:space-between;padding-top:.85rem;padding-bottom:.85rem}
-nav b{font:700 1.05rem var(--display)}
-nav ul{display:flex;gap:1.4rem;list-style:none;margin:0;padding:0;font:500 .95rem var(--display);overflow-x:auto;white-space:nowrap}
-nav ul a{text-decoration:none;color:var(--muted)}
-nav ul a:hover{color:var(--ink)}
+/* header */
+header.bar{position:sticky;top:0;z-index:20;background:rgba(21,18,16,.82);backdrop-filter:blur(10px)}
+header.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:3.6rem}
+.logo{font:italic 400 1.6rem var(--serif);text-decoration:none}
+.logo span{color:var(--acc)}
+.menu{background:none;border:0;color:var(--ink);width:2.6rem;height:2.6rem;cursor:pointer;display:grid;place-content:center;gap:5px}
+.menu i{display:block;width:22px;height:2px;background:currentColor;transition:transform .25s,opacity .25s}
+.menu[aria-expanded="true"] i:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu[aria-expanded="true"] i:nth-child(2){opacity:0}
+.menu[aria-expanded="true"] i:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.drawer{position:fixed;inset:3.6rem 0 0 0;z-index:19;background:var(--bg);padding:2rem clamp(1.25rem,5vw,3rem);display:none;flex-direction:column;gap:.4rem}
+.drawer.open{display:flex}
+.drawer a{font:500 clamp(2rem,8vw,3.2rem)/1.2 var(--sans);text-decoration:none;letter-spacing:-.02em;padding:.3rem 0;border-bottom:1px solid var(--line)}
+.drawer a:hover{color:var(--acc)}
 
 /* hero */
-.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:2rem;align-items:center;padding:clamp(3rem,9vw,6.5rem) 0 clamp(2.5rem,7vw,5rem)}
-.hero h1{font-size:clamp(3.2rem,9.5vw,7rem);font-weight:700}
-.hero .role{font:500 clamp(1.15rem,2.6vw,1.5rem)/1.3 var(--display);color:var(--moss);margin:1.4rem 0 .6rem}
-.hero .where{color:var(--muted);margin:0;max-width:30rem}
-.hero .cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
-.btn{font:500 1rem var(--display);padding:.8rem 1.3rem;border-radius:999px;text-decoration:none;border:1.5px solid var(--ink);transition:background .2s,color .2s}
-.btn.fill{background:var(--ink);color:var(--bg)}
-.btn:hover{background:var(--moss);border-color:var(--moss);color:var(--bg)}
-.shell{width:100%;max-width:26rem;justify-self:center;color:var(--moss)}
-.shell svg{width:100%;height:auto;display:block;overflow:visible}
-.shell .sp{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
-.shell .rib{stroke:var(--shell);stroke-width:1.4;opacity:.8}
-.shell .sp{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw 3.2s cubic-bezier(.5,.1,.2,1) .2s forwards}
-@keyframes draw{to{stroke-dashoffset:0}}
-.shell .rib{opacity:0;animation:fade 1.2s ease 2.6s forwards}
-@keyframes fade{to{opacity:.8}}
+.hero{padding:clamp(3rem,10vw,7rem) 0 clamp(2.5rem,6vw,4rem)}
+.hero h1{font-size:clamp(3.4rem,13vw,8.5rem);margin-bottom:1.8rem}
+.hero h1 em{display:block;font-size:1.08em}
+.lede{font-size:clamp(1.15rem,2.4vw,1.45rem);line-height:1.45;max-width:38rem;margin:0 0 1rem;font-weight:500}
+.sub{color:var(--muted);max-width:34rem;margin:0 0 2rem}
+.btns{display:flex;flex-wrap:wrap;gap:.8rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font:500 .95rem var(--sans);padding:.85rem 1.4rem;border-radius:999px;border:1px solid var(--line);text-decoration:none;background:none;color:var(--ink);cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.btn:hover{border-color:var(--acc);color:var(--acc)}
+.btn.fill{background:var(--acc);border-color:var(--acc);color:#1a0e08}
+.btn.fill:hover{background:var(--ink);border-color:var(--ink);color:#1a0e08}
+
+/* marquee */
+.marq{border-block:1px solid var(--line);overflow:hidden;padding:1.1rem 0;white-space:nowrap}
+.marq div{display:inline-flex;gap:2.2rem;animation:slide 32s linear infinite}
+.marq span{font:italic 400 1.9rem var(--serif);color:var(--muted)}
+.marq span::after{content:"";display:inline-block;width:.4rem;height:.4rem;border-radius:50%;background:var(--acc);margin-left:2.2rem;vertical-align:middle}
+@keyframes slide{to{transform:translateX(-50%)}}
 
 /* sections */
-section{padding:clamp(3rem,8vw,5.5rem) 0;border-top:1px solid var(--line)}
-.grid{display:grid;grid-template-columns:12rem 1fr;gap:2rem 3rem}
-section h2{font-size:clamp(1.7rem,3.5vw,2.2rem);font-weight:700}
-.prose p{margin:0 0 1.2rem;max-width:40rem}
-.prose p:last-child{margin-bottom:0}
+section{padding:clamp(4rem,9vw,6.5rem) 0}
+section h2{font-size:clamp(2.4rem,7vw,4.4rem);margin-bottom:1rem}
+.intro{color:var(--muted);max-width:34rem;margin:0 0 3rem}
 
-/* research */
-.focus{display:grid;grid-template-columns:1.4fr 1fr;gap:1.5rem}
-.panel{border-radius:1.4rem;padding:clamp(1.5rem,3vw,2.2rem)}
-.panel.major{background:var(--ink);color:var(--bg)}
-.panel.minor{background:var(--surface)}
-.panel .tag{font:500 .95rem var(--display);opacity:.8;margin:0 0 .8rem}
-.panel h3{font-size:clamp(1.4rem,2.6vw,1.9rem);margin-bottom:1.2rem}
-.panel ul{margin:0;padding:0;list-style:none}
-.panel li{padding:.55rem 0;border-top:1px solid color-mix(in srgb,currentColor 22%,transparent)}
-.panel.major li::before{content:"";display:inline-block;width:.55rem;height:.55rem;border-radius:50%;background:var(--shell);margin-right:.8rem}
-.panel.minor li::before{content:"";display:inline-block;width:.55rem;height:.55rem;border-radius:50%;background:var(--moss);margin-right:.8rem}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .panel.major{background:var(--surface);color:var(--ink)}}
+/* cards */
+.cards{display:grid;gap:2.6rem}
+.card .art{aspect-ratio:5/3;border-radius:1.1rem;background:radial-gradient(120% 120% at 70% 20%,#2a1a12 0%,#17120f 60%);border:1px solid var(--line);overflow:hidden}
+.card .art svg{width:100%;height:100%;display:block}
+.card .row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:1.2rem 0 .5rem}
+.card h3{font-size:1.9rem}
+.card .no{font-size:.72rem;letter-spacing:.14em;color:var(--muted);white-space:nowrap}
+.card p{color:var(--muted);margin:0 0 1rem;max-width:34rem}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem;padding:0;margin:0;list-style:none}
+.tags li{font-size:.78rem;padding:.3rem .75rem;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+.s1{stroke:var(--acc);fill:none;stroke-linecap:round}
 
-/* links list */
-.links{list-style:none;margin:0;padding:0}
-.links li{border-top:1px solid var(--line)}
-.links li:last-child{border-bottom:1px solid var(--line)}
-.links a{display:flex;justify-content:space-between;gap:1rem;padding:1.05rem .2rem;text-decoration:none;font:500 1.15rem var(--display);transition:padding .2s,color .2s}
-.links a span{font:400 1rem var(--body);color:var(--muted);text-align:right;overflow-wrap:anywhere}
-.links a:hover{color:var(--moss);padding-left:.8rem}
+/* about */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2.4rem 0;border-block:1px solid var(--line);padding:1.6rem 0}
+.stats b{display:block;font:500 clamp(2.2rem,8vw,3.6rem)/1 var(--sans);color:var(--acc);letter-spacing:-.03em}
+.stats span{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.prose p{margin:0 0 1.1rem;max-width:38rem}
+.group{margin-top:1.8rem}
+.group h4{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin:0 0 .5rem;font-weight:500}
+.group p{margin:0;color:var(--muted);line-height:1.9}
 
-.inat{background:var(--surface);border-radius:1.4rem;padding:clamp(1.5rem,3vw,2.2rem);margin-bottom:2rem}
-.inat p{margin:0 0 1.2rem;max-width:38rem}
-.sub{font:500 1rem var(--display);color:var(--muted);margin:2.2rem 0 .8rem}
+/* education */
+.entry{border-top:1px solid var(--line);padding:1.6rem 0}
+.entry small{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin-bottom:.5rem}
+.entry h3{font-size:1.6rem;margin-bottom:.3rem}
+.entry p{margin:0;color:var(--muted);max-width:36rem}
+.list{list-style:none;padding:0;margin:2.4rem 0 0}
+.list li{border-top:1px solid var(--line)}
+.list li:last-child{border-bottom:1px solid var(--line)}
+.list a{display:flex;justify-content:space-between;gap:1rem;padding:1rem 0;text-decoration:none;font-weight:500;transition:color .2s}
+.list a span{color:var(--muted);font-weight:400;font-size:.92rem;overflow-wrap:anywhere;text-align:right}
+.list a:hover{color:var(--acc)}
 
-footer{border-top:1px solid var(--line);padding:2rem 0 3rem;color:var(--muted);font-size:.95rem}
+/* contact */
+.mail{display:flex;justify-content:space-between;gap:1rem;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:1rem;padding:1rem 1.2rem;text-decoration:none;margin-bottom:.8rem;overflow-wrap:anywhere}
+.mail small{display:block;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.mail:hover{border-color:var(--acc)}
+form{margin-top:2rem;display:grid;gap:1rem}
+label{display:grid;gap:.4rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+input,textarea{font:400 1rem var(--sans);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:.8rem;padding:.9rem 1rem;width:100%;text-transform:none;letter-spacing:0}
+textarea{min-height:8rem;resize:vertical}
+input::placeholder,textarea::placeholder{color:#6c635a}
+footer{border-top:1px solid var(--line);padding:1.8rem 0 3rem;color:var(--muted);font-size:.85rem}
 
-@media (max-width:760px){
-  .hero,.focus,.grid{grid-template-columns:1fr}
-  .shell{max-width:15rem;justify-self:start;order:-1}
-  .grid{gap:1.2rem}
-  nav b{display:none}
+/* reveal on scroll */
+.js .rv{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+
+@media (min-width:860px){
+  .cards{grid-template-columns:1fr 1fr}
+  .cards .card:first-child{grid-column:1/-1}
+  .cards .card:first-child .art{aspect-ratio:21/9}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:4rem}
 }
 @media (prefers-reduced-motion:reduce){
-  .shell .sp{animation:none;stroke-dashoffset:0}
-  .shell .rib{animation:none;opacity:.8}
+  .marq div{animation:none}
+  .js .rv{opacity:1;transform:none;transition:none}
   html{scroll-behavior:auto}
 }
 </style>
 </head>
 <body>
-<nav>
+<header class="bar">
   <div class="wrap">
-    <b>Thisula Shehan</b>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#research">Research</a></li>
-      <li><a href="#inaturalist">iNaturalist</a></li>
-      <li><a href="#cv">CV and profiles</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </div>
-</nav>
-
-<main>
-<header class="wrap hero">
-  <div>
-    <h1>Thisula Shehan</h1>
-    <p class="role">Undergraduate researcher in biodiversity and invertebrate zoology</p>
-    <p class="where">Faculty of Agriculture, University of Peradeniya, Sri Lanka</p>
-    <div class="cta">
-      <a class="btn fill" href="#research">See my research</a>
-      <a class="btn" href="https://www.inaturalist.org/people/thisula_shehan" target="_blank" rel="noopener">View my observations</a>
-    </div>
-  </div>
-  <div class="shell" aria-hidden="true">
-    <svg viewBox="-110 -110 220 220" id="shell"><g id="ribs"></g><path class="sp" id="sp" d=""/></svg>
+    <a class="logo" href="#top">Thisula<span>.</span></a>
+    <button class="menu" id="menu" aria-label="Menu" aria-expanded="false" aria-controls="drawer"><i></i><i></i><i></i></button>
   </div>
 </header>
+<nav class="drawer" id="drawer" aria-label="Main">
+  <a href="#research">Research</a>
+  <a href="#about">About</a>
+  <a href="#education">Education</a>
+  <a href="#contact">Contact</a>
+</nav>
 
-<section id="about">
-  <div class="wrap grid">
-    <h2>About</h2>
-    <div class="prose">
-      <p>I am an undergraduate at the Faculty of Agriculture, University of Peradeniya, Sri Lanka. My academic interests are biodiversity and organismal biology, with a main focus on land and marine gastropods: their diversity, ecology, taxonomy and interactions with the environment.</p>
-      <p>I also study moth biodiversity, especially taxonomy, distribution and ecological significance in Sri Lanka. Through both areas I want to contribute to biodiversity documentation and conservation science.</p>
-    </div>
+<main id="top">
+<div class="wrap hero">
+  <p class="eyebrow"><i></i>Open to research collaboration</p>
+  <h1>Thisula <em>Shehan</em></h1>
+  <p class="lede">Undergraduate researcher in biodiversity and invertebrate zoology.</p>
+  <p class="sub">I study the land and freshwater snails and the moths of Sri Lanka, and document what I find in the field. Faculty of Agriculture, University of Peradeniya.</p>
+  <div class="btns">
+    <a class="btn fill" href="#research">See my research</a>
+    <a class="btn" href="#contact">Get in touch</a>
   </div>
-</section>
+</div>
+
+<div class="marq" aria-hidden="true"><div>
+  <span>Gastropods</span><span>Taxonomy</span><span>Moths</span><span>Ecology</span><span>Conservation</span><span>iNaturalist</span><span>Distribution mapping</span>
+  <span>Gastropods</span><span>Taxonomy</span><span>Moths</span><span>Ecology</span><span>Conservation</span><span>iNaturalist</span><span>Distribution mapping</span>
+</div></div>
 
 <section id="research">
-  <div class="wrap grid">
-    <h2>Research</h2>
-    <div class="focus">
-      <div class="panel major">
-        <p class="tag">Major focus</p>
-        <h3>Land and freshwater gastropod biodiversity in Sri Lanka</h3>
-        <ul>
-          <li>Species diversity assessment</li>
-          <li>Taxonomic documentation</li>
-          <li>Ecological interactions</li>
-          <li>Conservation relevance</li>
-        </ul>
+  <div class="wrap">
+    <p class="eyebrow rv"><b>01</b> Research</p>
+    <h2 class="rv">Things I <em>study</em></h2>
+    <p class="intro rv">Two research areas and a steady habit of recording what I see outdoors.</p>
+    <div class="cards">
+      <article class="card rv">
+        <div class="art"><svg viewBox="0 0 500 300" data-art="shell" aria-hidden="true"></svg></div>
+        <div class="row"><h3>Gastropod biodiversity</h3><span class="no">MAJOR FOCUS</span></div>
+        <p>Land and freshwater gastropods in Sri Lanka: how many species there are, how to tell them apart, and how they interact with their surroundings.</p>
+        <ul class="tags"><li>Species diversity</li><li>Taxonomic documentation</li><li>Ecological interactions</li><li>Conservation</li></ul>
+      </article>
+      <article class="card rv">
+        <div class="art"><svg viewBox="0 0 500 300" data-art="moth" aria-hidden="true"></svg></div>
+        <div class="row"><h3>Moth biodiversity</h3><span class="no">SECONDARY</span></div>
+        <p>Moth taxonomy and distribution in Sri Lanka, and what moths tell us about the ecosystems they live in.</p>
+        <ul class="tags"><li>Identification</li><li>Distribution mapping</li><li>Ecological significance</li></ul>
+      </article>
+      <article class="card rv">
+        <div class="art"><svg viewBox="0 0 500 300" data-art="dots" aria-hidden="true"></svg></div>
+        <div class="row"><h3>Field records</h3><span class="no">ONGOING</span></div>
+        <p>Observations of arthropods, gastropods, other invertebrates and plants, shared on iNaturalist as citizen science records.</p>
+        <ul class="tags"><li>iNaturalist</li><li>Field photography</li><li>Species records</li></ul>
+        <p style="margin-top:1rem"><a class="btn" href="https://www.inaturalist.org/people/thisula_shehan" target="_blank" rel="noopener">Open my profile</a></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="about" style="background:var(--surface)">
+  <div class="wrap">
+    <p class="eyebrow rv"><b>02</b> About</p>
+    <h2 class="rv">Curious about <em>small</em> animals.</h2>
+    <div class="stats rv">
+      <div><b>2</b><span>Research focuses</span></div>
+      <div><b>4</b><span>Groups recorded</span></div>
+      <div><b>1</b><span>Island, Sri Lanka</span></div>
+    </div>
+    <div class="two">
+      <div class="prose rv">
+        <p>I am an undergraduate at the Faculty of Agriculture, University of Peradeniya. My interests are biodiversity and organismal biology, with a main focus on land and marine gastropods: their diversity, ecology, taxonomy and interactions with the environment.</p>
+        <p>I also study moth biodiversity, especially taxonomy, distribution and ecological significance in Sri Lanka. Through both areas I want to contribute to biodiversity documentation and conservation science.</p>
       </div>
-      <div class="panel minor">
-        <p class="tag">Secondary focus</p>
-        <h3>Moth biodiversity and taxonomy in Sri Lanka</h3>
-        <ul>
-          <li>Species identification</li>
-          <li>Distribution mapping</li>
-          <li>Ecological significance</li>
-        </ul>
+      <div class="rv">
+        <div class="group" style="margin-top:0"><h4>Focus</h4><p>Gastropods, Moths</p></div>
+        <div class="group"><h4>Methods</h4><p>Species identification, Taxonomic documentation, Distribution mapping, Diversity assessment</p></div>
+        <div class="group"><h4>Profiles</h4><p>iNaturalist, ORCID, ResearchGate, LinkedIn</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="inaturalist">
-  <div class="wrap grid">
-    <h2>Citizen science</h2>
-    <div>
-      <div class="inat">
-        <p>I record field observations on iNaturalist, adding species records from across Sri Lanka. They cover arthropods, gastropods and other invertebrates, plus plants, and support biodiversity documentation and citizen science research.</p>
-        <a class="btn fill" href="https://www.inaturalist.org/people/thisula_shehan" target="_blank" rel="noopener">Open my iNaturalist profile</a>
+<section id="education">
+  <div class="wrap">
+    <p class="eyebrow rv"><b>03</b> Education</p>
+    <h2 class="rv">Where I <em>learn</em></h2>
+    <div class="btns rv" style="margin-bottom:2rem"><a class="btn fill" href="https://thisulashehan.github.io/CV%20.pdf" target="_blank" rel="noopener">Download CV</a></div>
+    <div class="entry rv">
+      <small>Undergraduate</small>
+      <h3>Faculty of Agriculture</h3>
+      <p>University of Peradeniya, Sri Lanka. Biodiversity and organismal biology, with research on gastropods and moths.</p>
+    </div>
+    <ul class="list rv">
+      <li><a href="https://orcid.org/0009-0001-5448-4288" target="_blank" rel="noopener">ORCID <span>0009-0001-5448-4288</span></a></li>
+      <li><a href="https://www.researchgate.net/profile/Thisula-Shehan" target="_blank" rel="noopener">ResearchGate <span>Thisula-Shehan</span></a></li>
+      <li><a href="https://www.linkedin.com/in/thisula-shehan" target="_blank" rel="noopener">LinkedIn <span>thisula-shehan</span></a></li>
+    </ul>
+  </div>
+</section>
+
+<section id="contact" style="background:var(--surface)">
+  <div class="wrap">
+    <p class="eyebrow rv"><b>04</b> Contact</p>
+    <h2 class="rv">Let's <em>talk</em> nature.</h2>
+    <p class="intro rv">Write about research, identification help or collaboration. Your message opens in your email app.</p>
+    <div class="two">
+      <div class="rv">
+        <a class="mail" href="mailto:thisula@ms.ac.lk"><span><small>University email</small>thisula@ms.ac.lk</span></a>
+        <a class="mail" href="mailto:thisulashehan@gmail.com"><span><small>Personal email</small>thisulashehan@gmail.com</span></a>
+        <a class="mail" href="https://www.facebook.com/thisulashehan0" target="_blank" rel="noopener"><span><small>Facebook</small>thisulashehan0</span></a>
       </div>
-    </div>
-  </div>
-</section>
-
-<section id="cv">
-  <div class="wrap grid">
-    <h2>CV and profiles</h2>
-    <div>
-      <ul class="links">
-        <li><a href="https://thisulashehan.github.io/CV%20.pdf" target="_blank" rel="noopener">Download my CV <span>PDF</span></a></li>
-        <li><a href="https://orcid.org/0009-0001-5448-4288" target="_blank" rel="noopener">ORCID <span>0009-0001-5448-4288</span></a></li>
-        <li><a href="https://www.researchgate.net/profile/Thisula-Shehan" target="_blank" rel="noopener">ResearchGate <span>Thisula-Shehan</span></a></li>
-        <li><a href="https://www.linkedin.com/in/thisula-shehan" target="_blank" rel="noopener">LinkedIn <span>thisula-shehan</span></a></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="wrap grid">
-    <h2>Contact</h2>
-    <div>
-      <ul class="links">
-        <li><a href="mailto:thisula@ms.ac.lk">University email <span>thisula@ms.ac.lk</span></a></li>
-        <li><a href="mailto:thisulashehan@gmail.com">Personal email <span>thisulashehan@gmail.com</span></a></li>
-        <li><a href="https://www.facebook.com/thisulashehan0" target="_blank" rel="noopener">Facebook <span>thisulashehan0</span></a></li>
-      </ul>
+      <form class="rv" id="form">
+        <label>Name<input id="n" placeholder="Your name" required></label>
+        <label>Email<input id="e" type="email" placeholder="you@example.com" required></label>
+        <label>Message<textarea id="m" placeholder="A few lines about what you have in mind" required></textarea></label>
+        <button class="btn fill" type="submit" style="justify-self:start">Send message</button>
+      </form>
     </div>
   </div>
 </section>
 </main>
 
-<footer>
-  <div class="wrap">© 2026 Thisula Shehan | Biodiversity Research</div>
-</footer>
+<footer><div class="wrap">© 2026 Thisula Shehan | Biodiversity Research</div></footer>
 
 <script>
-(function(){
-  // Logarithmic spiral, the growth curve of a gastropod shell.
-  var pts=[],b=0.2,a=2.2,turns=3.6,N=360;
-  for(var i=0;i<=N;i++){
-    var t=i/N*turns*2*Math.PI, r=a*Math.exp(b*t);
-    pts.push([r*Math.cos(t-Math.PI/2*0), r*Math.sin(t)]);
+document.documentElement.classList.add("js");
+// menu
+var mb=document.getElementById("menu"),dr=document.getElementById("drawer");
+function tog(o){mb.setAttribute("aria-expanded",o);dr.classList.toggle("open",o)}
+mb.onclick=function(){tog(mb.getAttribute("aria-expanded")!=="true")};
+dr.onclick=function(e){if(e.target.tagName==="A")tog(false)};
+// reveal on scroll
+var els=document.querySelectorAll(".rv");
+if("IntersectionObserver" in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}})},{threshold:.12});
+  els.forEach(function(el){io.observe(el)});
+}else{els.forEach(function(el){el.classList.add("in")})}
+// mail form
+document.getElementById("form").onsubmit=function(ev){
+  ev.preventDefault();
+  var b=document.getElementById("m").value+"\n\n"+document.getElementById("n").value+"\n"+document.getElementById("e").value;
+  location.href="mailto:thisulashehan@gmail.com?subject="+encodeURIComponent("Message from "+document.getElementById("n").value)+"&body="+encodeURIComponent(b);
+};
+// illustrations
+function S(el,h){el.innerHTML=h}
+var A=document.querySelectorAll("[data-art]");
+A.forEach(function(el){
+  var t=el.dataset.art,h="";
+  if(t==="shell"){
+    var cx=250,cy=150;
+    for(var k=0;k<3;k++){
+      var pts=[],sc=1-k*.22;
+      for(var i=0;i<=300;i++){var a=i/300*3.4*2*Math.PI,r=2.4*Math.exp(.21*a)*sc;pts.push((cx+r*Math.cos(a)).toFixed(1)+" "+(cy+r*Math.sin(a)).toFixed(1))}
+      h+='<path class="s1" stroke-width="'+(2.2-k*.6)+'" opacity="'+(1-k*.3)+'" d="M'+pts.join(" L")+'"/>';
+    }
+    for(var j=0;j<28;j++){var a2=1.2+j*.2,r2=2.4*Math.exp(.21*a2),r3=2.4*Math.exp(.21*(a2-2*Math.PI));
+      h+='<line class="s1" stroke-width="1" opacity=".45" x1="'+(cx+r2*Math.cos(a2)).toFixed(1)+'" y1="'+(cy+r2*Math.sin(a2)).toFixed(1)+'" x2="'+(cx+r3*Math.cos(a2)).toFixed(1)+'" y2="'+(cy+r3*Math.sin(a2)).toFixed(1)+'"/>'}
   }
-  var s=Math.max.apply(null,pts.map(function(p){return Math.hypot(p[0],p[1])}));
-  var k=100/s;
-  var d="M"+pts.map(function(p){return (p[0]*k).toFixed(1)+" "+(p[1]*k).toFixed(1)}).join(" L");
-  var sp=document.getElementById("sp");
-  sp.setAttribute("d",d);
-  var len=0;for(var i=1;i<pts.length;i++){len+=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1])*k}
-  sp.style.setProperty("--len",Math.ceil(len)+2);
-  // Growth ribs: short radial lines from the spiral to its previous whorl.
-  var g=document.getElementById("ribs"),h="";
-  for(var j=N*0.3;j<=N;j+=9){
-    var p=pts[Math.round(j)], q=pts[Math.max(0,Math.round(j-N/turns))];
-    h+='<line class="rib" x1="'+(p[0]*k).toFixed(1)+'" y1="'+(p[1]*k).toFixed(1)+'" x2="'+(q[0]*k).toFixed(1)+'" y2="'+(q[1]*k).toFixed(1)+'"/>';
+  if(t==="moth"){
+    var fw="M250 140 C200 60 120 50 90 95 C85 140 170 165 250 155Z",hw="M250 158 C200 168 150 205 165 245 C205 255 245 215 250 175Z";
+    var vn="";[[250,140,110,100],[250,148,100,125],[250,155,125,150],[250,166,185,230]].forEach(function(v){vn+='<path class="s1" stroke-width="1" opacity=".5" d="M'+v[0]+' '+v[1]+' L'+v[2]+' '+v[3]+'"/>'});
+    var w='<path class="s1" stroke-width="2" fill="rgba(255,90,31,.08)" d="'+fw+'"/><path class="s1" stroke-width="2" fill="rgba(255,90,31,.08)" d="'+hw+'"/>'+vn+'<circle cx="130" cy="112" r="9" class="s1" stroke-width="1.5"/>';
+    h=w+'<g transform="translate(500 0) scale(-1 1)">'+w+'</g><path class="s1" stroke-width="3" d="M250 120 L250 235"/><path class="s1" stroke-width="1.5" d="M250 122 C240 95 225 85 215 80 M250 122 C260 95 275 85 285 80"/>';
   }
-  g.innerHTML=h;
-})();
+  if(t==="dots"){
+    var seed=7;function R(){seed=(seed*9301+49297)%233280;return seed/233280}
+    for(var r=1;r<=6;r++){h+='<circle class="s1" cx="250" cy="150" r="'+(r*24)+'" stroke-width="1" opacity="'+(.55-r*.07)+'"/>'}
+    for(var d=0;d<46;d++){var ang=R()*6.283,rad=10+R()*140;h+='<circle cx="'+(250+rad*Math.cos(ang)*1.5).toFixed(1)+'" cy="'+(150+rad*Math.sin(ang)*.9).toFixed(1)+'" r="'+(2+R()*3.5).toFixed(1)+'" fill="#FF5A1F" opacity="'+(.4+R()*.6).toFixed(2)+'"/>'}
+  }
+  S(el,h);
+});
 </script>
 </body>
-    </html>
+                                                                                      </html>
